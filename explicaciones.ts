@@ -67,11 +67,11 @@ const main = async () => {
    
        // CREAR USUARIO
        UserModel.create({
-           nombre: "miguel",
-           apellido: "Salazar",
-           identificacion: "345888",
+           nombre: "edier",
+           apellido: "Aristizabal",
+           identificacion: "8525287",
            rol: Enum_Rol.lider,
-           correo: "antcds@gmail.com",
+           correo: "ans@gmail.com",
        })
            .then((u) => {
                console.log('usuario creado', u);
