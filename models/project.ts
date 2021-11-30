@@ -38,12 +38,12 @@ const projectSchema = new Schema<Project>({
   estado: {
     type: String,
     enum: Enum_EstadoProyecto,
-    default: Enum_EstadoProyecto.Inactivo,
+    default: Enum_EstadoProyecto.INACTIVO,
   },
   fase: {
     type: String,
     enum: Enum_FaseProyecto,
-    default: Enum_FaseProyecto.Nulo,
+    default: Enum_FaseProyecto.NULO,
   },
   lider: {
     type: Schema.Types.ObjectId,
@@ -55,12 +55,12 @@ const projectSchema = new Schema<Project>({
       descripcion: {
         type: String,
         required: [true, "debe proporcionar la descripcion del objetivo"],
-        tipo: {
-          type: String,
-          enum: Enum_TipoObjetivo,
-          required: [true, "debe proporcionar el tipo de objetivo"],
-        },
       },
+      tipo: {
+        type: String,
+        enum: Enum_TipoObjetivo,
+        required: [true, "debe proporcionar el tipo de objetivo"],
+      }
     },
   ],
 });
