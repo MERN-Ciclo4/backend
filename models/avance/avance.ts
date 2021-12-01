@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
-import { projectModel } from "./project";
-import { userModel } from "./user";
+import { projectModel } from "../proyecto/proyecto";
+import { userModel } from "../usuario/usuario";
 
 interface Advancement {
   descripcion: string;
@@ -15,9 +15,11 @@ const advancementSchema = new Schema<Advancement>({
     type: String,
     required: [true, "debe proporcionar una descripcion del avance"],
   },
-  observaciones: [{
-    type: String,
-  }],
+  observaciones: [
+    {
+      type: String,
+    },
+  ],
   fecha: {
     type: Date,
     required: [true, "debe proporcionar la fecha del avance"],
@@ -37,4 +39,8 @@ const advancementSchema = new Schema<Advancement>({
   },
 });
 
-export const advancementModel = model("Advancement", advancementSchema, "avance");
+export const advancementModel = model(
+  "Advancement",
+  advancementSchema,
+  "avance"
+);

@@ -3,9 +3,8 @@ import {
   Enum_EstadoProyecto,
   Enum_FaseProyecto,
   Enum_TipoObjetivo,
-} from "./enums";
-import { objectiveModel } from "./objective";
-import { userModel } from "./user";
+} from "../enums/enums";
+import { userModel } from "../usuario/usuario";
 
 interface Project {
   nombre: string;
@@ -60,7 +59,7 @@ const projectSchema = new Schema<Project>({
         type: String,
         enum: Enum_TipoObjetivo,
         required: [true, "debe proporcionar el tipo de objetivo"],
-      }
+      },
     },
   ],
 });

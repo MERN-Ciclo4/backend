@@ -1,104 +1,17 @@
 import { gql } from "apollo-server-express";
+import { advancementTypes } from "../models/avance/types";
+import { inscriptionTypes } from "../models/inscripcion/types";
+import { projectTypes } from "../models/proyecto/types";
+import { userTypes } from "../models/usuario/types";
 
-export const typeDefs = gql`
+const globalTypes = gql`
   scalar Date
-  enum Enum_EstadoInscripcion{
-    ACEPTADA
-    RECHAZADA
-  }
-  enum Enum_TipoObjetivo{
-    GENERAL
-    ESPECIFICO
-  }
-  enum Enum_FaseProyecto{
-    INICIADO
-    EN_DESARROLLO
-    TERMINADO
-    NULO
-  }
-  enum Enum_EstadoProyecto{
-    ACTIVO
-    INACTIVO
-  }
-  enum Enum_EstadoUsuario {
-    PENDIENTE
-    AUTORIZADO
-    NO_AUTORIZADO
-  }
-  enum Enum_Rol {
-    ESTUDIANTE
-    LIDER
-    ADMINISTRADOR
-  }
-  type Usuario {
-    _id: ID!
-    nombre: String!
-    apellido: String!
-    identificacion: String!
-    correo: String!
-    estado: Enum_EstadoUsuario!
-    rol: Enum_Rol!
-  }
-  type Objetivo
-  {
-    _id : ID!
-    descripcion: String!
-    tipo: Enum_TipoObjetivo!
-  }
-  input ObjetivoParaCrear{
-    descripcion: String!
-    tipo: Enum_TipoObjetivo!
-  }
-  type Proyecto {
-    _id: ID!
-    nombre: String!
-    presupuesto: Float!
-    fechaInicio: Date!
-    fechaFin: Date!
-    estado: Enum_EstadoProyecto!
-    fase: Enum_FaseProyecto!
-    lider: Usuario!
-    objetivos: [Objetivo]
-
-  }
-  type Query {
-    Usuarios: [Usuario]
-    Usuario(_id: String): Usuario
-    Proyectos: [Proyecto]
-  }
-  type Mutation {
-
-    crearProyecto(
-    nombre: String!
-    presupuesto: Float!
-    fechaInicio: String!
-    fechaFin: String!
-    estado: Enum_EstadoProyecto!
-    fase: Enum_FaseProyecto!
-    lider: String!
-    objetivos: [
-      ObjetivoParaCrear
-    ]): Proyecto 
-
-    crearUsuario(
-      nombre: String!
-      apellido: String!
-      identificacion: String!
-      correo: String!
-      estado: Enum_EstadoUsuario
-      rol: Enum_Rol!
-    ): Usuario
-
-    eliminarUsuario(_id: String, correo: String): Usuario
-
-    editarUsuario(
-      _id: String!
-      nombre: String
-      apellido: String
-      identificacion: String
-      correo: String
-      estado: Enum_EstadoUsuario
-      rol: Enum_Rol
-    ): Usuario
-  }
 `;
+
+export const typeDefs = [
+  globalTypes,
+  userTypes,
+  projectTypes,
+  inscriptionTypes,
+  advancementTypes,
+];

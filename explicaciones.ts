@@ -1,5 +1,5 @@
 import connectDB from "./db/db";
-import { Enum_EstadoUsuario, Enum_Rol, Enum_TipoObjetivo } from "./models/enums";
+import { Enum_EstadoUsuario, Enum_Rol, Enum_TipoObjetivo } from "./models/enums/enums";
 import { userModel } from "./models/user";
 import { projectModel } from "./models/project";
 import { objectiveModel } from "./models/objective";
