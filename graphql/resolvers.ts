@@ -1,4 +1,5 @@
 import { UserModel } from "../models/user";
+import {ProyectoModel} from "../models/project"
 
 const resolvers = {
 
@@ -7,8 +8,11 @@ const resolvers = {
             const usuarios = await UserModel.find();
             return usuarios;
         },
+        Proyectos: async(parent, args)=>{
+            const proyectos=await ProyectoModel.find().populate('lider');
+            return proyectos;
+        },
     },
-
     Mutation: {
         crearUsuario: async (parent, args) => {
             const usuarioCreado = await UserModel.create({
@@ -46,6 +50,19 @@ const resolvers = {
                 return usuarioEliminado;
             }
         },
+        crearProyecto:async(parent,args)=>{
+            const proyectoCreado= await ProyectoModel.create({
+                nombre:args.nombre,
+                estado:args.estado,
+                fase:args.fase,
+                fechaInicio:args.fechaInicio,
+                fechaFin:args.fechaFin,
+                presupuesto:args.presupuesto,
+                objetivos:args.objetivos,
+                lider:args.lider,
+            });
+            return proyectoCreado;
+        }
     },
 };
 
