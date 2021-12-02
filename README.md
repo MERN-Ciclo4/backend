@@ -15,3 +15,4 @@ After that run this command
 yarn install && yarn dev
 ```
 
+NOTA: SI NO LES FUNCIONA LOS MERGE POR UNRELATED HISTORIES DEBEN UTILIZAR EL SIGUIENTE FLAG --allow-unrelated-histories
