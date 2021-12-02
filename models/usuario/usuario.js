@@ -1,7 +1,5 @@
 import {Schema, model} from 'mongoose';
-import {Enum_Rol , Enum_EstadoUsuario} from './enums';
-
-
+import {Enum_Rol , Enum_EstadoUsuario} from '../enums/enums';
 
 interface user{
     correo:string,
@@ -11,8 +9,6 @@ interface user{
     rol:Enum_Rol,
     estado:Enum_EstadoUsuario;
     }
-
-
 
 const userSchema = new Schema<user>({
 

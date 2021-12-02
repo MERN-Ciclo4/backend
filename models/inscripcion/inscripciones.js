@@ -1,5 +1,5 @@
 import {Schema, model, Date} from 'mongoose';
-import {Enum_EstadoInscripcion} from './enums';
+import {Enum_EstadoInscripcion} from '../enums/enums';
 
 interface Inscription{
     proyecto:string;
