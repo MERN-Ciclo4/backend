@@ -1,4 +1,4 @@
-import { inscriptionModel } from "./inscripcion";
+import { inscriptionModel } from "./inscripcion.js";
 
 export const inscriptionResolver = {
   Query: {

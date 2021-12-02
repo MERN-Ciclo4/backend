@@ -1,20 +1,6 @@
 import { gql } from "apollo-server-core";
 
 export const projectTypes = gql`
-  enum Enum_FaseProyecto {
-    INICIADO
-    EN_DESARROLLO
-    TERMINADO
-    NULO
-  }
-  enum Enum_EstadoProyecto {
-    ACTIVO
-    INACTIVO
-  }
-  enum Enum_TipoObjetivo {
-    GENERAL
-    ESPECIFICO
-  }
   type Objetivo {
     _id: ID!
     descripcion: String!
@@ -34,6 +20,8 @@ export const projectTypes = gql`
     fase: Enum_FaseProyecto!
     lider: Usuario!
     objetivos: [Objetivo]
+    avances: [Avance]
+    inscripciones: [Inscripcion]
   }
   input ProyectoParams {
     _id: String
@@ -67,8 +55,8 @@ export const projectTypes = gql`
       presupuesto: Float!
       fechaInicio: String!
       fechaFin: String!
-      estado: Enum_EstadoProyecto!
-      fase: Enum_FaseProyecto!
+      estado: Enum_EstadoProyecto
+      fase: Enum_FaseProyecto
       lider: String!
       objetivos: [ObjetivoInput]
     ): Proyecto

@@ -1,10 +1,7 @@
 import { gql } from "apollo-server-core";
 
 export const inscriptionTypes = gql`
-  enum Enum_EstadoInscripcion {
-    ACEPTADA
-    RECHAZADA
-  }
+  
   type Inscripcion {
     _id: ID!
     estado: Enum_EstadoInscripcion!
@@ -35,7 +32,7 @@ export const inscriptionTypes = gql`
   }
   type Mutation {
     crearInscripcion(
-      estado: Enum_EstadoInscripcion!
+      estado: Enum_EstadoInscripcion
       fechaIngreso: Date!
       fechaEgreso: Date!
       proyecto: String!

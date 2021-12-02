@@ -1,9 +1,13 @@
-import { projectModel } from "./proyecto";
+import { projectModel } from "./proyecto.js";
 
 export const projectResolvers = {
   Query: {
     Proyectos: async () => {
-      const projects = await projectModel.find({}).populate("lider");
+      const projects = await projectModel
+        .find({})
+        .populate("lider")
+        .populate("avances")
+        .populate("inscripciones");
       return projects;
     },
     FiltrarProyecto: async (parent, { params }) => {

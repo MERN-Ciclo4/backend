@@ -1,16 +1,7 @@
 import { gql } from "apollo-server-core";
 
 export const userTypes = gql`
-  enum Enum_EstadoUsuario {
-    PENDIENTE
-    AUTORIZADO
-    NO_AUTORIZADO
-  }
-  enum Enum_Rol {
-    ESTUDIANTE
-    LIDER
-    ADMINISTRADOR
-  }
+  
   type Usuario {
     _id: ID!
     nombre: String!
@@ -19,6 +10,10 @@ export const userTypes = gql`
     correo: String!
     estado: Enum_EstadoUsuario!
     rol: Enum_Rol!
+    proyectosLiderados: [Proyecto]
+    avancesCreados: [Avance]
+    inscripciones: [Inscripcion]
+
   }
   type Query {
     Usuarios: [Usuario]

@@ -1,16 +1,9 @@
-import { Schema, model } from "mongoose";
-import { projectModel } from "../proyecto/proyecto";
-import { userModel } from "../usuario/usuario";
+import mongoose from "mongoose";
+import { projectModel } from "../proyecto/proyecto.js";
+import { userModel } from "../usuario/usuario.js";
+const { Schema, model } = mongoose;
 
-interface Advancement {
-  descripcion: string;
-  observaciones: [string];
-  proyecto: Schema.Types.ObjectId;
-  creadoPor: Schema.Types.ObjectId;
-  fecha: Date;
-}
-
-const advancementSchema = new Schema<Advancement>({
+const advancementSchema = new Schema({
   descripcion: {
     type: String,
     required: [true, "debe proporcionar una descripcion del avance"],
