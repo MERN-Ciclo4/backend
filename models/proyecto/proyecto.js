@@ -1,70 +1,67 @@
-import { Schema, model } from 'mongoose';
-import { Enum_EstadoProyecto, Enum_FaseProyecto, Enum_TipoObjetivo } from '../enums/enums';
-import { UserModel } from '../usuario/usuario';
+import mongoose from "mongoose";
+import { userModel } from "../usuario/usuario.js";
 
-
-
-interface Proyecto {
-    nombre: string;
-    objetivos: [{ descripcion: string; tipo: Enum_TipoObjetivo }];
-    presupuesto: string;
-    fechaInicio: Date;
-    fechaFin: Date;
-    lider: Schema.Types.ObjectId;
-    estado: Enum_EstadoProyecto;
-    fase: Enum_FaseProyecto;
-}
-
-const proyectoSchema = new Schema<Proyecto>({
+const { Schema, model } = mongoose;
+const projectSchema = new Schema(
+  {
     nombre: {
-        type: String,
-        required: true,
-        unique: true,
+      type: String,
+      require: [true, "debe proporcionar el nombre del proyecto"],
     },
-    objetivos: [
-        {
-            descripcion: {
-                type: String,
-                required: true,
-            },
-            tipo: {
-                type: String,
-                enum: Enum_TipoObjetivo,
-                required: true,
-            },
-        },
-    ],
     presupuesto: {
-        type: String,
-        required: true,
+      type: Number,
+      required: [true, "debe proporcionar el presupuesto del proyecto"],
     },
     fechaInicio: {
-        type: Date,
-        required: true,
+      type: Date,
+      required: [true, "debe proporcionar la fecha de inicio del projecto"],
     },
     fechaFin: {
-        type: Date,
-        required: true,
-        ref: UserModel,
+      type: Date,
+      required: [true, "debe proporcionar la fecha fin del projecto"],
     },
-    lider: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: UserModel,
-    },
-
     estado: {
-        type: String,
-        enum: Enum_EstadoProyecto,
-        defaul: Enum_EstadoProyecto.INACTIVO,
+      type: String,
+      enum: ["ACTIVO", "INACTIVO"],
+      default: "INACTIVO",
     },
     fase: {
-        type: String,
-        enum: Enum_FaseProyecto,
-        default: Enum_FaseProyecto.NULO,
+      type: String,
+      enum: ["INICIADO", "EN_DESARROLLO", "TERMINADO", "NULO"],
+      default: "NULO",
     },
+    lider: {
+      type: Schema.Types.ObjectId,
+      required: [true, "debe proporcionar un lider"],
+      ref: userModel,
+    },
+    objetivos: [
+      {
+        descripcion: {
+          type: String,
+          required: [true, "debe proporcionar la descripcion del objetivo"],
+        },
+        tipo: {
+          type: String,
+          enum: ["GENERAL", "ESPECIFICO"],
+          required: [true, "debe proporcionar el tipo de objetivo"],
+        },
+      },
+    ],
+  },
+  {
+    toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
+    toObject: { virtuals: true }, // So `console.log()` and other functions that use `toObject()` include virtuals
+  }
+);
+projectSchema.virtual("avances", {
+  ref: "Advancement",
+  localField: "_id", // Llave primaria
+  foreignField: "proyecto", // Llave foranea
 });
-
-const ProyectoModel = model('Proyecto', proyectoSchema, 'proyectos');
-
-export { ProyectoModel };
+projectSchema.virtual("inscripciones", {
+  ref: "Inscription",
+  localField: "_id",
+  foreignField: "proyecto",
+});
+export const projectModel = model("Project", projectSchema, "proyecto");

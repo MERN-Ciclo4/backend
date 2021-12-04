@@ -26,7 +26,6 @@ export const advancementTypes = gql`
   }
   type Query {
     Avances: [Avance]
-
     FiltrarAvance(params: AvanceParams!): [Avance]
   }
   type Mutation {
@@ -37,9 +36,7 @@ export const advancementTypes = gql`
       proyecto: String!
       creadoPor: String!
     ): Avance
-
     eliminarAvance(_id: String!): Avance
-
     editarAvance(_id: String!, body: AvanceBody!): Avance
   }
 `;
