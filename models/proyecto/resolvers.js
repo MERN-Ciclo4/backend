@@ -1,28 +1,36 @@
-import {ProyectoModel} from "./proyecto"
+import { projectModel } from "./proyecto.js";
 
-const resolversProyecto = {
-
-    Query: {
-        Proyectos: async(parent, args)=>{
-            const proyectos=await ProyectoModel.find().populate('lider');
-            return proyectos;
-        },
+export const projectResolvers = {
+  Query: {
+    Proyectos: async () => {
+      const projects = await projectModel
+        .find({})
+        .populate("lider")
+        .populate("avances")
+        .populate("inscripciones");
+      return projects;
     },
-    Mutation: {
-        crearProyecto:async(parent,args)=>{
-            const proyectoCreado= await ProyectoModel.create({
-                nombre:args.nombre,
-                estado:args.estado,
-                fase:args.fase,
-                fechaInicio:args.fechaInicio,
-                fechaFin:args.fechaFin,
-                presupuesto:args.presupuesto,
-                objetivos:args.objetivos,
-                lider:args.lider,
-            });
-            return proyectoCreado;
-        }
+    FiltrarProyecto: async (parent, { params }) => {
+      const proyecto = await projectModel.find({ ...params });
+      return proyecto;
     },
+  },
+  Mutation: {
+    crearProyecto: async (parent, args) => {
+      const proyecto = await projectModel.create({ ...args });
+      return proyecto;
+    },
+    eliminarProyecto: async (parent, { _id }) => {
+      const proyecto = await projectModel.findOneAndDelete({ _id });
+      return proyecto;
+    },
+    editarProyecto: async (parent, { _id, body }) => {
+      const proyecto = await projectModel.findOneAndUpdate(
+        { _id },
+        { ...body },
+        { runValidators: true, new: true }
+      );
+      return proyecto;
+    },
+  },
 };
-
-export { resolversProyecto };

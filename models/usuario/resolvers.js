@@ -1,51 +1,35 @@
-import { UserModel } from "./usuario";
+import { userModel } from "./usuario.js";
 
-const resolversUsuario = {
-
-    Query: {
-        Usuarios: async (parent, args) => {
-            const usuarios = await UserModel.find();
-            return usuarios;
-        },
+export const userResolvers = {
+  Query: {
+    Usuarios: async (parent, args) => {
+      const usuarios = userModel
+        .find({})
+        .populate("proyectosLiderados")
+        .populate("avancesCreados")
+        .populate("inscripciones");
+      return usuarios;
     },
-    Mutation: {
-        crearUsuario: async (parent, args) => {
-            const usuarioCreado = await UserModel.create({
-                nombre: args.nombre,
-                apellido: args.apellido,
-                identificacion: args.identificacion,
-                correo: args.correo,
-                estado: args.estado,
-                rol: args.rol,
-            });
-
-            if (Object.keys(args).includes('estado')) {
-                usuarioCreado.estado = args.estado;
-            }
-
-            return usuarioCreado;
-        },
-        editarUsuario: async (parent, args) => {
-            const usuarioEditado = await UserModel.findByIdAndUpdate(args._id, {
-                nombre: args.nombre,
-                apellido: args.apellido,
-                identificacion: args.identificacion,
-                correo: args.correo,
-                estado: args.estado,
-                rol: args.rol,
-            });
-            return usuarioEditado;
-        },
-        eliminarUsuario: async (parent, args) => {
-            if (Object.keys(args).includes("_id")) {
-                const usuarioEliminado = await UserModel.findOneAndDelete({ _id: args._id });
-                return usuarioEliminado;
-            } else if (Object.keys(args).includes("correo")) {
-                const usuarioEliminado = await UserModel.findOneAndDelete({ correo: args.correo });
-                return usuarioEliminado;
-            }
-        },
+    Usuario: async (parent, args) => {
+      const usuario = userModel.findOne({ ...args });
+      return usuario;
     },
+  },
+  Mutation: {
+    crearUsuario: async (parent, args) => {
+      const user = userModel.create({ ...args });
+      return user;
+    },
+    eliminarUsuario: async (parent, args) => {
+      const user = userModel.findOneAndDelete({ ...args });
+      return user;
+    },
+    editarUsuario: async (parent, { _id, ...body }) => {
+      const user = userModel.findOneAndUpdate({ _id }, body, {
+        runValidators: true,
+        new: true,
+      });
+      return user;
+    },
+  },
 };
-
-export { resolversUsuario };

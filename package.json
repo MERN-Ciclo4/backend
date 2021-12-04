@@ -1,29 +1,28 @@
 {
-  "name": "backend",
+  "name": "gestion-de-proyectos-back",
   "version": "1.0.0",
-  "description": "Backend para proyecto del Ciclo4 del Programa MisionTIC2021",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node index.ts"
-},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MERN-Ciclo4/backend.git"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
-  "author": "Grupo MERN",
+  "repository": {},
+  "keywords": [],
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MERN-Ciclo4/backend/issues"
-  },
-  "homepage": "https://github.com/MERN-Ciclo4/backend#readme",
+  "bugs": {},
+  "homepage": "",
+  "type": "module",
   "dependencies": {
     "apollo-server-express": "^3.5.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "graphql": "^15.7.2",
-    "mongoose": "^6.0.13",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.2"
+    "graphql": "^16.0.1",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
