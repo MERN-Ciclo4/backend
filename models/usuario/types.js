@@ -1,7 +1,6 @@
 import { gql } from "apollo-server-core";
 
 export const userTypes = gql`
-  
   type Usuario {
     _id: ID!
     nombre: String!
@@ -10,14 +9,21 @@ export const userTypes = gql`
     correo: String!
     estado: Enum_EstadoUsuario!
     rol: Enum_Rol!
-    proyectosLiderados: [Proyecto]
-    avancesCreados: [Avance]
-    inscripciones: [Inscripcion]
-
+    proyectosLiderados: [Proyecto!]!
+    avancesCreados: [Avance!]!
+    inscripciones: [Inscripcion!]!
+  }
+  input UsuarioBody {
+    nombre: String
+    apellido: String
+    identificacion: String
+    correo: String
+    estado: Enum_EstadoUsuario
+    rol: Enum_Rol
   }
   type Query {
-    Usuarios: [Usuario]
-    Usuario(_id: String!): Usuario
+    Usuarios(filter: UsuarioBody): [Usuario!]!
+    Usuario(_id: String, correo: String): Usuario
   }
   type Mutation {
     crearUsuario(
@@ -33,12 +39,7 @@ export const userTypes = gql`
 
     editarUsuario(
       _id: String!
-      nombre: String
-      apellido: String
-      identificacion: String
-      correo: String
-      estado: Enum_EstadoUsuario
-      rol: Enum_Rol
+      body: UsuarioBody!
     ): Usuario
   }
 `;
