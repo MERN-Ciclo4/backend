@@ -1,19 +1,30 @@
+import { projectModel } from "../proyecto/proyecto.js";
+import { userModel } from "../usuario/usuario.js";
 import { advancementModel } from "./avance.js";
 
 export const advancementResolvers = {
+  Avance: {
+    proyecto: async ({ proyecto }, args) => {
+      const project = await projectModel.findOne({ _id: proyecto });
+      return project;
+    },
+    creadoPor: async ({creadoPor}, args) => {
+      const user = await userModel.findOne({ _id: creadoPor });
+      return user;
+    },
+  },
   Query: {
-    Avances: async () => {
-      const avances = await advancementModel
-        .find({})
-        .populate("creadoPor")
-        .populate("proyecto");
+    Avances: async (parent, { filter }, context) => {
+      const filtrado = {};
+      if (filter) {
+        filtrado = filter;
+      }
+      const avances = await advancementModel.find(filtrado);
       return avances;
     },
-    FiltrarAvance: async (parent, { params }) => {
-      const avances = await advancementModel
-        .find({ ...params })
-        .populate("creadoPor")
-        .populate("proyecto");
+    Avance: async (parent, { _id }) => {
+      const avances = await advancementModel.findOne({ _id });
+
       return avances;
     },
   },
