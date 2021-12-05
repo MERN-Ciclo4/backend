@@ -49,19 +49,19 @@ const projectSchema = new Schema(
       },
     ],
   },
-  {
-    toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
-    toObject: { virtuals: true }, // So `console.log()` and other functions that use `toObject()` include virtuals
-  }
+  // {
+  //   toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
+  //   toObject: { virtuals: true }, // So `console.log()` and other functions that use `toObject()` include virtuals
+  // }
 );
-projectSchema.virtual("avances", {
-  ref: "Advancement",
-  localField: "_id", // Llave primaria
-  foreignField: "proyecto", // Llave foranea
-});
-projectSchema.virtual("inscripciones", {
-  ref: "Inscription",
-  localField: "_id",
-  foreignField: "proyecto",
-});
+// projectSchema.virtual("avances", {
+//   ref: "Advancement",
+//   localField: "_id", // Llave primaria
+//   foreignField: "proyecto", // Llave foranea
+// });
+// projectSchema.virtual("inscripciones", {
+//   ref: "Inscription",
+//   localField: "_id",
+//   foreignField: "proyecto",
+// });
 export const projectModel = model("Project", projectSchema, "proyecto");

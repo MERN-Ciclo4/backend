@@ -37,24 +37,24 @@ const userSchema = new Schema(
       enum: ["PENDIENTE", "AUTORIZADO", "NO_AUTORIZADO"],
     },
   },
-  {
-    toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
-    toObject: { virtuals: true }, // So `console.log()` and other functions that use `toObject()` include virtuals
-  }
+  // {
+  //   toJSON: { virtuals: true }, // So `res.json()` and other `JSON.stringify()` functions include virtuals
+  //   toObject: { virtuals: true }, // So `console.log()` and other functions that use `toObject()` include virtuals
+  // }
 );
-userSchema.virtual("inscripciones", {
-  ref: "Inscription",
-  localField: "_id",
-  foreignField: "estudiante",
-});
-userSchema.virtual("avancesCreados", {
-  ref: "Advancement",
-  localField: "_id",
-  foreignField: "creadoPor",
-});
-userSchema.virtual("proyectosLiderados", {
-  ref: "Project",
-  localField: "_id",
-  foreignField: "lider",
-});
+// userSchema.virtual("inscripciones", {
+//   ref: "Inscription",
+//   localField: "_id",
+//   foreignField: "estudiante",
+// });
+// userSchema.virtual("avancesCreados", {
+//   ref: "Advancement",
+//   localField: "_id",
+//   foreignField: "creadoPor",
+// });
+// userSchema.virtual("proyectosLiderados", {
+//   ref: "Project",
+//   localField: "_id",
+//   foreignField: "lider",
+// });
 export const userModel = model("User", userSchema, "usuario");
