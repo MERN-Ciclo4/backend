@@ -23,17 +23,6 @@ export const projectTypes = gql`
     avances: [Avance]
     inscripciones: [Inscripcion]
   }
-  input ProyectoParams {
-    _id: String
-    nombre: String
-    presupuesto: Float
-    fechaInicio: Date
-    fechaFin: Date
-    estado: Enum_EstadoProyecto
-    fase: Enum_FaseProyecto
-    lider: String
-    objetivos: [String]
-  }
   input ProyectoBody {
     nombre: String
     presupuesto: Float
@@ -45,9 +34,9 @@ export const projectTypes = gql`
     objetivos: [String]
   }
   type Query {
-    Proyectos: [Proyecto]
+    Proyectos(filter: ProyectoBody): [Proyecto]
 
-    FiltrarProyecto(params: ProyectoParams!): [Proyecto]
+    Proyecto(_id: ID!): Proyecto
   }
   type Mutation {
     crearProyecto(

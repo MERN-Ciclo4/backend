@@ -9,14 +9,6 @@ export const advancementTypes = gql`
     proyecto: Proyecto!
     creadoPor: Usuario!
   }
-  input AvanceParams {
-    _id: String
-    descripcion: String
-    observaciones: [String]
-    fecha: Date
-    proyecto: String
-    creadoPor: String
-  }
   input AvanceBody {
     descripcion: String
     observaciones: [String]
@@ -25,9 +17,9 @@ export const advancementTypes = gql`
     creadoPor: String
   }
   type Query {
-    Avances: [Avance]
+    Avances(filter: AvanceBody): [Avance]
 
-    FiltrarAvance(params: AvanceParams!): [Avance]
+    Avance(_id: ID!): Avance
   }
   type Mutation {
     crearAvance(
