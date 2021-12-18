@@ -6,10 +6,12 @@ export const projectTypes = gql`
     descripcion: String!
     tipo: Enum_TipoObjetivo!
   }
+
   input ObjetivoInput {
     descripcion: String!
     tipo: Enum_TipoObjetivo!
   }
+
   type Proyecto {
     _id: ID!
     nombre: String!
@@ -23,6 +25,7 @@ export const projectTypes = gql`
     avances: [Avance]
     inscripciones: [Inscripcion]
   }
+
   input ProyectoBody {
     nombre: String
     presupuesto: Float
@@ -33,9 +36,9 @@ export const projectTypes = gql`
     lider: String
     objetivos: [String]
   }
+  
   type Query {
     Proyectos(filter: ProyectoBody): [Proyecto]
-
     Proyecto(_id: ID!): Proyecto
   }
   type Mutation {
